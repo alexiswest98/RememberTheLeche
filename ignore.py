@@ -89,8 +89,8 @@ class Group(db.Model):
     __tablename__ = 'groups'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.VARCHAR(50), nullable=False)
-    image_url = db.Column(db.VARCHAR(100), default='https://moodlehub.ca/pluginfile.php/6842/mod_book/chapter/9131/group2.jpg')
+    name = db.Column(db.String(50), nullable=False)
+    image_url = db.Column(db.String(100), default='https://moodlehub.ca/pluginfile.php/6842/mod_book/chapter/9131/group2.jpg')
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'))
     list_id = db.Column(db.Integer, db.ForeignKey('lists.id'))
