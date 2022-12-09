@@ -100,4 +100,4 @@ class Group(db.Model):
     # Relationships
     group_to_task = db.relationship('Task', back_populates='task_to_group') 
     group_to_list = db.relationship('List', back_populates='list_to_group')
-    group_to_user = db.relationshiop('User', back_populates='user_who_created_group')
+    group_to_user = db.relationship('User', back_populates='user_who_created_group')
