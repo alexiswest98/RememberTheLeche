@@ -27,9 +27,11 @@ class Task(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    #this boolean helps us know what data is lists vs simple tasks when rendering front end 
     list = db.Column(db.Boolean, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     due = db.Column(db.Date, nullable=False)
+    notes = db.Column(db.String(1000))
     completed = db.Column(db.Boolean, default=False)
     completed_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -47,6 +49,7 @@ class SubTask(db.Model):
     content = db.Column(db.String(500), nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
     due = db.Column(db.Date, nullable=False)
+    notes = db.Column(db.String(1000))
     completed = db.Column(db.Boolean, default=False)
     completed_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
