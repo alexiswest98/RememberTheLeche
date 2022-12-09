@@ -9,7 +9,19 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password')
-
+    alexis_west = User( username='Alexis West', password='password123', email='alexis@gmail.com', image_url='', )
+    michael_lacey = User( username='Michael Lacey', password='password123', email='michael@gmail.com', image_url='', )
+    gabriel_day = User( username='Gabriel Day', password='password123', email='gabester1@gmail.com', image_url='', )
+    evan_morgan = User( username='Evan Morgan', password='password123', email='captainmorgan@gmail.com', image_url='', )
+    seed_user = User( username='Jared Couglhing', password='password123', email='jaredc@gmail.com', image_url='', )
+    seed_user1 = User( username='David Bonkano', password='password123', email='DavidBonk@gmail.com', image_url='', )
+    seed_user2 = User( username='Jennifer Wyling', password='password123', email='jgirliewy@gmail.com', image_url='', )
+    seed_user3 = User( username='David Bonkano', password='password123', email='DavidBonk@gmail.com', image_url='', )
+    seed_user4 = User( username='Michelle Rose', password='password123', email='Michelleerosey@gmail.com', image_url='', )
+    seed_user5 = User( username='Brittany Bleminger', password='password123', email='thebigbrit@gmail.com', image_url='', )
+    seed_user6 = User( username='George Plosem', password='password123', email='plosemGeorge10@gmail.com', image_url='', )
+    seed_user7 = User( username='Meredith Jordyn', password='password123', email='meredithJordyn@gmail.com', image_url='', )
+    
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
@@ -27,5 +39,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users")
-        
+
     db.session.commit()
