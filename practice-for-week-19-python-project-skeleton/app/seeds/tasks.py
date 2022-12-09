@@ -1,7 +1,7 @@
-from app.models import Task, db
+from app.models import db, Task, environment, SCHEMA
 
 
-def seed_items():
+def seed_tasks():
     task1 = Task(
         name='Buy my starbies', user_id=1, due='2029-10-9', notes='Grind Coffee', list_id=1 )
     task2 = Task(
@@ -56,5 +56,13 @@ def seed_items():
 
 
 
+
+    db.session.commit()
+
+def undo_tasks():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.tasks RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute("DELETE FROM tasks")
 
     db.session.commit()
