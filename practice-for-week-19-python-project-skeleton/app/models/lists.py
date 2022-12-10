@@ -12,6 +12,7 @@ class List(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     due = db.Column(db.Date, nullable=False)
     notes = db.Column(db.String(1000))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
     completed = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())

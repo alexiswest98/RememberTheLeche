@@ -3,6 +3,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+follows = db.Table(
+    "follows",
+    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
+    )
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -10,16 +16,15 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(100), nullable=False, unique=True)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    password = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(1000))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     # Relationships
     user_to_task = db.relationship('Task', back_populates='task_to_user')
-    user_who_created_task = db.relationship('Task', back_populates='task_creator')
     user_who_created_group = db.relationship('Group', back_populates='group_to_user')
     user_to_list = db.relationship('List', back_populates='list_to_user')
 
@@ -31,12 +36,6 @@ class User(db.Model, UserMixin):
         backref=db.backref("following", lazy="dynamic"),
         lazy="dynamic"
         )
-
-    follows = db.Table(
-    "follows",
-    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
-)
 
     @property
     def password(self):
