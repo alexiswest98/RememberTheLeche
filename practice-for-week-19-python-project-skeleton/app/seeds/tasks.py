@@ -3,26 +3,32 @@ from app.models import db, Task, environment, SCHEMA
 
 def seed_tasks():
     task1 = Task(
-        name='Buy my starbies', user_id=1, due='2029-10-9', notes='Grind Coffee', list_id=1 )
+        name='Buy my starbies', user_id=1, due='2029-10-9', notes='Grind Coffee', list_id=1 
+        )
     task2 = Task(
-        name='Buy some cat food', user_id=1, due='2029-10-9', notes='Must be vegan, fair trade, and from Colombia', list_id=1 )
+        name='Buy some cat food', user_id=1, due='2029-10-9', notes='Must be vegan, fair trade, and from Colombia', list_id=1 
+        )
     task3 = Task(
-        name='Buy some ice cream', user_id=1, due='2029-10-9', notes='Must be Mcconnells', list_id=1 )
+        name='Buy some ice cream', user_id=1, due='2029-10-9', notes='Must be Mcconnells', list_id=1 
+        )
     task4 = Task(
-        name='Fold some clothes', user_id=1, due='2023-05-24', notes='Hang them as well', list_id=2 )
+        name='Fold some clothes', user_id=1, due='2023-05-24', notes='Hang them as well', list_id=2 
+        )
     task5 = Task(
-        name='Do the dishes', user_id=1, due='2023-05-24', notes='If time allows ', list_id=2)
+        name='Do the dishes', user_id=1, due='2023-05-24', notes='If time allows ', list_id=2
+        )
     task6 = Task(
-        name='Check in for progress tracker', user_id=1, due='2023-05-24', notes='REMEMBER PLEASE', list_id=2)
+        name='Check in for progress tracker', user_id=1, due='2023-05-24', notes='REMEMBER PLEASE', list_id=2
+        )
     task7 = Task(
-    name='Mow the lawn', user_id=1, due='2023-02-12', notes="Don't aim grass clippings towards street", list_id=1)
-    task8 = Task(
-    name='Rake leaves', user_id=1, due='2023-03-20', list_id=1)
-
-    task9 = Task(
-    name='Edge the grass', user_id=1, due='2023-03-20', notes='Edge After mowing', list_id=1
+    name='Mow the lawn', user_id=1, due='2023-02-12', notes="Don't aim grass clippings towards street", list_id=3
     )
-
+    task8 = Task(
+    name='Rake leaves', user_id=1, due='2023-03-20', list_id=3
+    )
+    task9 = Task(
+    name='Edge the grass', user_id=1, due='2023-03-20', notes='Edge After mowing', list_id=3
+    )
     task10 = Task(
     name='Study for coding test', user_id=1, due='2023-03-20', notes='Research array methods'
     )
