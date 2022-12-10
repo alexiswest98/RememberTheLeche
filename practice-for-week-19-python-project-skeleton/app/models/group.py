@@ -1,6 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .lists import List
-from .user import User
 
 class Group(db.Model):
     __tablename__ = 'groups'
