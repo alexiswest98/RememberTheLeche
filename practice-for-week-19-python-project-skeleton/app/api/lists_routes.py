@@ -6,14 +6,14 @@ lists_routes = Blueprint('lists', __name__)
 
 
 #get all lists by user
-@list_routes.route('/')
+@lists_routes.route('/')
 def lists_by_user():
   user = User.query.get(current_user.id)
   lists = List.query.filter(List.user_id == user.id).all()
   return jsonify(lists)
 
 #get all lists by group
-@list_routes.route('/<int:group_id>')
+@lists_routes.route('/<int:group_id>')
 def lists_by_group(group_id):
   lists = List.query.filter_by(group_id=group_id).all()
   return jsonify(lists)
@@ -21,7 +21,7 @@ def lists_by_group(group_id):
 #get all lists for day/ week/ month
 
 #create new list
-@list_routes.route('/', methods=['POST'])
+@lists_routes.route('/', methods=['POST'])
 def create_lists():
   form = ListForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -36,7 +36,7 @@ def create_lists():
   return jsonify('res')
 
 #delete list by id
-@list_routes.route('/<int:list_id>')
+@lists_routes.route('/<int:list_id>')
 def delete_list(list_id):
   list = List.query.get(list_id)
   tasks = Task.query.filter_by(list_id=list_id).all()
