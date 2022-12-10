@@ -9,4 +9,4 @@ user_routes = Blueprint('follows', __name__)
 def follow():
   pass
 #unfollow
-#follow someone
+#
