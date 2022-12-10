@@ -1,6 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .users import User
 from .group import Group
+from .user import User
+from .group import Group
 
 member = db.Table(
     'members',

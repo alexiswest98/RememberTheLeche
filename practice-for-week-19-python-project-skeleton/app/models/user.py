@@ -1,7 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from ..static import userspic.png
+from .tasks import Task
+
 follows = db.Table(
     "follows",
     db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
@@ -18,12 +19,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(500), nullable=False)
-    image_url = db.Column(db.String(1000), default='userspic.png')
+    image_url = db.Column(db.String(1000), default='/static/userspic.png')
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     # Relationships
-    user_to_task = db.relationship('Task', back_populates='task_to_user')
+    # user_to_task = db.relationship('Task', back_populates='task_to_user')
     user_who_created_group = db.relationship('Group', back_populates='group_to_user')
     user_to_list = db.relationship('List', back_populates='list_to_user')
 

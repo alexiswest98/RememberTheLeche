@@ -1,5 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
+from .group import Group
+from .tasks import Task
+from .user import User
 
 class List(db.Model):
     __tablename__ = 'lists'

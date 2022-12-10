@@ -7,6 +7,10 @@ from flask_login import LoginManager
 from .models import db, User, Task, List, Group
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.followers import follow_routes
+from .api.groups_routes import groups_routes
+from .api.lists_routes import lists_routes
+from .api.tasks_routes import tasks_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -31,10 +35,10 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(lists_routes, url_prefix="/lists")
-app.register_blueprint(tasks_routes, url_prefix="/tasks")
-app.register_blueprint(group_routes, url_prefix="/group")
-app.register_blueprint(follow_routes, url_prefix="/follow")
+app.register_blueprint(lists_routes, url_prefix="/api/lists")
+app.register_blueprint(tasks_routes, url_prefix="/api/tasks")
+app.register_blueprint(groups_routes, url_prefix="/api/groups")
+app.register_blueprint(follow_routes, url_prefix="/api/follows")
 
 
 db.init_app(app)
