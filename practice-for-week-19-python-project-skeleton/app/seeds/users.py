@@ -1,22 +1,17 @@
 from app.models import db, User, environment, SCHEMA
 
-
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
-    alexis_west = User( username='Alexis West', password='password123', email='alexis@gmail.com', image_url='', )
-    michael_lacey = User( username='Michael Lacey', password='password123', email='michael@gmail.com', image_url='', )
-    gabriel_day = User( username='Gabriel Day', password='password123', email='gabester1@gmail.com', image_url='', )
-    evan_morgan = User( username='Evan Morgan', password='password123', email='captainmorgan@gmail.com', image_url='')
+    demo = User( username='Demo', email='demo@aa.io', password='password')
+    marnie = User( username='marnie', email='marnie@aa.io', password='password')
+    bobbie = User( username='bobbie', email='bobbie@aa.io', password='password')
+    alexis_west = User( username='Alexis West', password='password123', email='alexis@gmail.com')
+    michael_lacey = User( username='Michael Lacey', password='password123', email='michael@gmail.com')
+    gabriel_day = User( username='Gabriel Day', password='password123', email='gabester1@gmail.com')
+    evan_morgan = User( username='Evan Morgan', password='password123', email='captainmorgan@gmail.com')
     seed_user = User( username='Jared Couglhing', password='password123', email='jaredc@gmail.com')
     seed_user1 = User( username='David Bonkano', password='password123', email='DavidBonk@gmail.com')
     seed_user2 = User( username='Jennifer Wyling', password='password123', email='jgirliewy@gmail.com')
-    seed_user3 = User( username='David Bonkano', password='password123', email='DavidBonk@gmail.com')
     seed_user4 = User( username='Michelle Rose', password='password123', email='Michelleerosey@gmail.com')
     seed_user5 = User( username='Brittany Bleminger', password='password123', email='thebigbrit@gmail.com')
     seed_user6 = User( username='George Plosem', password='password123', email='plosemGeorge10@gmail.com')
@@ -32,8 +27,6 @@ def seed_users():
     db.session.add(seed_user)
     db.session.add(seed_user1)
     db.session.add(seed_user2)
-    db.session.add(seed_user3)
-    db.session.add(seed_user3)
     db.session.add(seed_user4)
     db.session.add(seed_user5)
     db.session.add(seed_user6)

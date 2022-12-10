@@ -18,5 +18,6 @@ class Task(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     # Relationships
-    task_to_user = db.relationship('User', foreignkeys=['Task.user_id', 'Task.completed_by'], back_populates='user_to_task')
+    task_to_user = db.relationship('User', foreign_keys=('Task.user_id'))
+    task_to_user = db.relationship('User', foreign_keys=('Task.completed_by'))
     task_to_list = db.relationship('List', back_populates='list_to_task')

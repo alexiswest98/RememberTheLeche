@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify
 from flask_login import login_required
 from app.models import Task
 
-task_routes = Blueprint('tasks', __name__)
+tasks_routes = Blueprint('tasks', __name__)
 
 
 #get all tasks by user
