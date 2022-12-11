@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, redirect
 from flask_login import login_required
 from datetime import date
 from app.models import Task, db
-from app.forms.task_form import 
+from app.forms.task_form import CreateTaskForm
 
 tasks_routes = Blueprint('tasks', __name__, url_prefix="/api/tasks" )
 

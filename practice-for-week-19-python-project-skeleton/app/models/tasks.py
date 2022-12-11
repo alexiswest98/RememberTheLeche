@@ -21,3 +21,16 @@ class Task(db.Model):
     task_to_user = db.relationship('User', foreign_keys=('Task.user_id'))
     task_to_user = db.relationship('User', foreign_keys=('Task.completed_by'))
     task_to_list = db.relationship('List', back_populates='list_to_task')
+
+    def to_dict(self):
+        return{
+            'id':self.id,
+            'name':self.name,
+            'list_id':self.list_id,
+            'user_id':self.user_id,
+            'due':self.due,
+            'notes':self.notes,
+            'completed_by':self.completed_by,
+            'created_at':self.created_at,
+            'updated_at':self.updated_at
+        }
