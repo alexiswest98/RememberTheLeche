@@ -9,3 +9,5 @@ class ListForm(FlaskForm):
   notes = StringField('Notes')
   group_id = IntegerField('Group_id')
   completed = BooleanField('Completed')
+
+#ignore testing pls work
