@@ -24,13 +24,14 @@ class Task(db.Model):
 
     def to_dict(self):
         return{
-            'id':self.id,
-            'name':self.name,
-            'list_id':self.list_id,
-            'user_id':self.user_id,
-            'due':self.due,
-            'notes':self.notes,
-            'completed_by':self.completed_by,
-            'created_at':self.created_at,
-            'updated_at':self.updated_at
+            'id': self.id,
+            'name': self.name,
+            'list_id': self.list_id,
+            'user_id': self.user_id,
+            'due': self.due,
+            'notes': self.notes,
+            'completed_by': self.completed_by,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+            # 'task_to_list': self.task_to_list
         }

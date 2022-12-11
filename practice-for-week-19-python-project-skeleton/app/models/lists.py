@@ -19,3 +19,15 @@ class List(db.Model):
     list_to_group = db.relationship('Group', back_populates='group_to_list')
     list_to_task = db.relationship('Task', back_populates='task_to_list')
     list_to_user = db.relationship('User', back_populates='user_to_list')
+
+    def to_dict(self):
+        return{
+            'id':self.id,
+            'user_id':self.user_id,
+            'name':self.name,
+            'due':self.due,
+            'notes':self.notes,
+            'completed':self.completed,
+            'created_at':self.created_at,
+            'updated_at':self.updated_at
+        }
