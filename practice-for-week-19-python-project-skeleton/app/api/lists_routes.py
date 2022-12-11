@@ -77,8 +77,4 @@ def delete_list(list_id):
     db.session.delete(list)
     db.session.commit()
     return 'Successfully deleted list'
-<<<<<<< HEAD
   return 'Could not find list'
-=======
-  return 'Could not find list'
->>>>>>> 01d6e897bc0f587b3e48bccc92c431a715fb8219
