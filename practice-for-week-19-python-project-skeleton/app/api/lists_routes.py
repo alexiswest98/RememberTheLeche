@@ -9,12 +9,22 @@ lists_routes = Blueprint('lists', __name__, url_prefix="/api/lists")
 #get all lists by user
 @lists_routes.route('/all', methods=['GET'])
 def lists_by_user():
-  # lists = List.query.filter(List.user_id == current_user.id).all()
-  lists = List.query.all()
+  lists = List.query.filter(List.user_id == current_user.id).all()
+  # lists = List.query.all()
   list_obj = [list.to_dict() for list in lists]
   return jsonify(list_obj)
 
-#get all lists by group #COME BY 
+
+#get one lists by ID
+@lists_routes.route('/<int:list_id>', methods=['GET'])
+def lists_by_user(list_id):
+  list = List.query.get(list_id)
+  # lists = List.query.all()
+  return jsonify(list.to_dict)
+
+
+
+#get all lists by group #COME BY
 @lists_routes.route('/groups/<int:group_id>')
 def lists_by_group(group_id):
   lists = List.query.filter(List.group_id == group_id).all()
@@ -31,7 +41,7 @@ def create_lists():
 
   data = form.data
   # print("********************", form.data)
-  
+
   if form.validate_on_submit():
     new_list = List(
       name = data['name'],

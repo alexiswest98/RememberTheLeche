@@ -1,4 +1,4 @@
-import {csrfFetch} from './csrf'
+// import {csrfFetch} from './csrf'
 
 const GETONEGROUP = 'groups/getOneGroup'
 const GETALLGROUPS = 'groups/getAllGroups'
@@ -35,24 +35,24 @@ export const deleteGroupAction = (groupId) => {
 };
 
 
-export const createGroupThunk = (group) => async (dispatch) => {
-  const { name, image_url, owner_id  } = group;
-  const response = await csrfFetch('/api/groups',
-  {
- method: 'POST',
- headers: {'Content-Type':'application/json'},
- body: JSON.stringify({
-  name,
-  image_url,
-  owner_id
-})
- })
+// export const createGroupThunk = (group) => async (dispatch) => {
+//   const { name, image_url, owner_id  } = group;
+//   const response = await csrfFetch('/api/groups',
+//   {
+//  method: 'POST',
+//  headers: {'Content-Type':'application/json'},
+//  body: JSON.stringify({
+//   name,
+//   image_url,
+//   owner_id
+// })
+//  })
 
- if (response.ok) {
-   const newGroup = await response.json();
-   createGroupAction(newGroup)
-    }
-};
+//  if (response.ok) {
+//    const newGroup = await response.json();
+//    createGroupAction(newGroup)
+//     }
+// };
 
 
 export const getGroupsThunk = () => async (dispatch) => {
@@ -72,13 +72,13 @@ export const getGroupThunk = (groupId) => async (dispatch) => {
   }
 };
 
-//Thunk for deleting a spot
-export const deleteGroupThunk = (groupId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/groups/${groupId}`, {method: 'DELETE'});
-  if (response.ok) {
-    dispatch(deleteGroupAction(groupId));
-  }
-};
+// //Thunk for deleting a spot
+// export const deleteGroupThunk = (groupId) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/groups/${groupId}`, {method: 'DELETE'});
+//   if (response.ok) {
+//     dispatch(deleteGroupAction(groupId));
+//   }
+// };
 
 
 export default function groupReducer(state = {}, action){
