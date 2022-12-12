@@ -6,6 +6,8 @@ const CreateList = 'lists/createList' //done
 const UpdateList = 'lists/updateList' //done
 const DeleteList = 'lists/deleteList' //done
 
+
+/* -----------ACTION----------- */
 export const GetOneListAction = (list) => {
   return {
     type: GetOneList,
@@ -41,6 +43,8 @@ export const DeleteListAction = (id) => {
   }
 }
 
+
+/* ------------THUNK----------- */
 export const GetOneListThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/lists/${id}`);
   if (res.ok){
@@ -89,7 +93,13 @@ export const CreateListThunk = (list) => async (dispatch) => {
   }
 }
 
-export default function tasksReducer(state = {}, action) {
+
+const initialState = {
+  allLists: {},
+  oneList: {}
+}
+/* ------------REDUCER----------- */
+export default function listsReducer(state = initialState, action) {
   let newState = {};
 
   switch (action.type) {
@@ -97,6 +107,10 @@ export default function tasksReducer(state = {}, action) {
           action.Lists.forEach(list => newState[list.id] = list)
           return newState
 
+      case GetOneList:
+        newState = { ...state, oneList: {...state.oneList}}
+        newState.oneList = { ...action.list }
+        return newState
       case UpdateList:
           newState = { ...state }
           newState[ action.list.id ] = action.list
