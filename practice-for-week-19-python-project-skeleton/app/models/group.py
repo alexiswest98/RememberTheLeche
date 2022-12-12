@@ -14,7 +14,7 @@ class Group(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     # Relationships
-    group_to_list = db.relationship('List', back_populates='list_to_group')
+    group_to_list = db.relationship('List', back_populates='list_to_group', cascade="all, delete")
     group_to_user = db.relationship('User', back_populates='user_who_created_group')
 
     def to_dict(self):

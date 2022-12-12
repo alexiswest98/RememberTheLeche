@@ -17,7 +17,7 @@ class List(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     list_to_group = db.relationship('Group', back_populates='group_to_list')
-    list_to_task = db.relationship('Task', back_populates='task_to_list')
+    list_to_task = db.relationship('Task', back_populates='task_to_list', cascade="all, delete")
     list_to_user = db.relationship('User', back_populates='user_to_list')
 
     def to_dict(self):

@@ -5,7 +5,7 @@ from ..forms.group_form import GroupForm
 groups_routes = Blueprint('groups', __name__)
 
 #get all groups
-@groups_routes.route('')
+@groups_routes.route('/all')
 # @login_required
 def get_groups():
   groups = Group.query.all()
