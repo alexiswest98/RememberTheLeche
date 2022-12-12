@@ -77,4 +77,3 @@ def create_task():
 
 # #delete task by id
 # @tasks_routes.route('/<int:id>', methods=['DELETE'])
-f

@@ -13,12 +13,12 @@ def get_groups():
 
 
 @groups_routes.route('/<int:id>', methods=['DELETE'])
-@login_required
+# @login_required
 def delete_group(id):
     group = Group.query.get(id)
     db.session.delete(group)
     db.session.commit()
-    return {"Group successfully deleted"}
+    return "Group successfully deleted"
 
 
 @groups_routes.route('/create', methods=['POST'])
