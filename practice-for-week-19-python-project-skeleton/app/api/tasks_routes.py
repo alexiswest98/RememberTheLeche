@@ -4,11 +4,11 @@ from datetime import date
 from app.models import Task, db
 from app.forms.task_form import CreateTaskForm
 
-tasks_routes = Blueprint('tasks', __name__)
+tasks_routes = Blueprint('tasks', __name__, url_prefix="/api/tasks" )
 
 
 #get all tasks by user
-@tasks_routes.route('/all')
+@tasks_routes.route('/all', methods=["GET"])
 def get_all_tasks():
   tasks = Task.query.all()
   taskobject = [task.to_dict() for task in tasks]
@@ -77,3 +77,4 @@ def create_task():
 
 # #delete task by id
 # @tasks_routes.route('/<int:id>', methods=['DELETE'])
+f
