@@ -8,29 +8,32 @@ lists_routes = Blueprint('lists', __name__, url_prefix="/api/lists")
 
 #get all lists by user
 @lists_routes.route('/all', methods=['GET'])
+@login_required
 def lists_by_user():
-  # lists = List.query.filter(List.user_id == current_user.id).all()
-  lists = List.query.all()
+  print(current_user.id)
+  lists = List.query.filter(List.user_id == current_user.id).all()
   list_obj = [list.to_dict() for list in lists]
   return jsonify(list_obj)
 
-#get all lists by group #COME BY 
+#get all lists by group #COME BY
 @lists_routes.route('/groups/<int:group_id>')
+@login_required
 def lists_by_group(group_id):
-  lists = List.query.filter(List.group_id == group_id).all()
+  lists = List.query.filter(List.group_id == group_id and List.user_id == current_user.id).all()
   list_obj = [list.to_dict() for list in lists]
   return jsonify(list_obj)
 
 
 #create new list
 @lists_routes.route('/', methods=['POST'])
+@login_required
 def create_lists():
   form = ListForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
   data = form.data
   # print("********************", form.data)
-  
+
   if form.validate_on_submit():
     new_list = List(
       name = data['name'],
@@ -46,6 +49,7 @@ def create_lists():
 
 #update list by id
 @lists_routes.route('/<int:list_id>', methods=['PUT'])
+@login_required
 def update_list(list_id):
   form = ListForm()
   list = List.query.get(list_id)
@@ -65,6 +69,7 @@ def update_list(list_id):
 
 #delete list by id
 @lists_routes.route('/<int:list_id>', methods=['DELETE'])
+@login_required
 def delete_list(list_id):
   list = List.query.get(list_id)
   tasks = Task.query.filter(Task.list_id == list_id).all()

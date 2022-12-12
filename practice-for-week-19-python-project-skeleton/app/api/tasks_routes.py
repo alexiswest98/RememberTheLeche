@@ -9,55 +9,60 @@ tasks_routes = Blueprint('tasks', __name__, url_prefix="/api/tasks" )
 
 #get all tasks by user
 @tasks_routes.route('/all', methods=["GET"])
+@login_required
 def get_all_tasks():
-  tasks = Task.query.all()
+  tasks = Task.query.filter(Task.user_id == current_user.id).all()
   taskobject = [task.to_dict() for task in tasks]
   # print(task.name for task in tasks)
   return jsonify(taskobject)
 
 #get specific list's tasks
 @tasks_routes.route('/lists/<int:list_id>', methods=["GET"])
+@login_required
 def get_list_tasks(list_id):
-    listTasks = Task.query.filter(Task.list_id == list_id).all()
+    listTasks = Task.query.filter(Task.list_id == list_id and Task.user_id == current_user.id).all()
     # print(listTasks)
     taskobject = [task.to_dict() for task in listTasks]
     return jsonify(taskobject)
 
 #get all tasks for day
 @tasks_routes.route('/day', methods=["GET"])
+@login_required
 def get_day_tasks():
   today = date.today()
-  # Textual month, day and year	
+  # Textual month, day and year
   # d2 = today.strftime("%d/%m/%Y")
   # print("CURRENT TODAY********", today)
   # print("d2 =", d2)
 
-  tasks = Task.query.filter(Task.due == today).all()
+  tasks = Task.query.filter(Task.due == today  and Task.user_id == current_user.id).all()
   taskobject = [task.to_dict() for task in tasks]
   return jsonify(taskobject)
 
 # get all tasks for tomorrow
 @tasks_routes.route('/tomorrow', methods=["GET"])
+@login_required
 def get_tmo_tasks():
   tomorrow = datetime.now() + timedelta(1)
-  # strftime = Textual month, day and year	
+  # strftime = Textual month, day and year
   d2 = tomorrow.strftime("%Y-%m-%d")
   # print("CURRENT TODAY********", d2)
 
-  tasks = Task.query.filter(Task.due == d2)
+  tasks = Task.query.filter(Task.due == d2 and Task.user_id == current_user.id)
   # print(tasks)
   taskobject = [task.to_dict() for task in tasks]
   return jsonify(taskobject)
 
 # get all tasks for month
 @tasks_routes.route('/month', methods=["GET"])
+@login_required
 def get_month_tasks():
   today = date.today()
-  # strftime = Textual month, day and year	
+  # strftime = Textual month, day and year
   d2 = today.strftime("%Y-%m")
   # print("CURRENT TODAY********", d2)
 
-  tasks = Task.query.all()
+  tasks = Task.query.filter(Task.user_id == current_user.id).all()
   new_tasks = [task for task in tasks if task.due.strftime("%Y-%m") == d2]
 
   taskobject = [task.to_dict() for task in new_tasks]
@@ -66,6 +71,7 @@ def get_month_tasks():
 
 # #create new simple task
 @tasks_routes.route('/', methods=['POST'])
+@login_required
 def create_task():
   form = CreateTaskForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -84,10 +90,11 @@ def create_task():
     db.session.commit()
     return jsonify(new_task.to_dict())
   return jsonify('You messed up', form.errors)
-  
+
 
 # #update task by id
 @tasks_routes.route('/<int:task_id>', methods=['PUT'])
+@login_required
 def update_task(task_id):
   form = CreateTaskForm()
   task = Task.query.get(task_id)
@@ -107,6 +114,7 @@ def update_task(task_id):
 
 # #delete task by id
 @tasks_routes.route('/<int:task_id>', methods=['DELETE'])
+@login_required
 def delete_task(task_id):
   task = Task.query.get(task_id)
   if task:
