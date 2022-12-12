@@ -8,7 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-
+import ProfileForm from './components/splashPage/profilePage';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -28,6 +28,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/profile' exact={true}>
+          <ProfileForm/>
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>

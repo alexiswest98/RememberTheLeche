@@ -100,7 +100,7 @@ export const CreateListThunk = (list) => async (dispatch) => {
 
     switch (action.type) {
         case GetAllLists:
-            action.Lists.forEach(list => newState[list.id] = list)
+            action.Lists.forEach(List => newState[List.id] = List)
             return newState
 
         case GetOneList:
