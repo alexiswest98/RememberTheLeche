@@ -1,3 +1,5 @@
+import {csrfFetch} from './csrf'
+//test
 const GETONEGROUP = 'groups/getOneGroup'
 const GETALLGROUPS = 'groups/getAllGroups'
 const CREATEONEGROUP = 'groups/createGroup'

@@ -21,7 +21,6 @@ def lists_by_group(group_id):
   list_obj = [list.to_dict() for list in lists]
   return jsonify(list_obj)
 
-#get all lists for day/ week/ month
 
 #create new list
 @lists_routes.route('/', methods=['POST'])
