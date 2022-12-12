@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, redirect, request
 from flask_login import login_required, current_user
-from datetime import date
+from datetime import date, datetime, timedelta
 from app.models import Task, db
 from app.forms.task_form import CreateTaskForm
 
@@ -15,39 +15,60 @@ def get_all_tasks():
   # print(task.name for task in tasks)
   return jsonify(taskobject)
 
-#get all tasks by group NEED EVANS will be ''/api/groups/</int:id>/tasks'
-# @tasks_routes.route('/lists/</int:id>', methods=["GET"])
-# def get_list_tasks():
+#get specific list's tasks
+@tasks_routes.route('/lists/<int:list_id>', methods=["GET"])
+def get_list_tasks(list_id):
+    listTasks = Task.query.filter(Task.list_id == list_id).all()
+    # print(listTasks)
+    taskobject = [task.to_dict() for task in listTasks]
+    return jsonify(taskobject)
 
-#   try:
-#     listTasks = Task.query.filter(Task.list_id).all()
-#   except LookupError:
-#     raise ValueError("No tasks or lists found")
+#get all tasks for day
+@tasks_routes.route('/day', methods=["GET"])
+def get_day_tasks():
+  today = date.today()
+  # Textual month, day and year	
+  # d2 = today.strftime("%d/%m/%Y")
+  # print("CURRENT TODAY********", today)
+  # print("d2 =", d2)
 
-#   print(listTasks)
-#   return 'listTasks'
+  tasks = Task.query.filter(Task.due == today).all()
+  taskobject = [task.to_dict() for task in tasks]
+  return jsonify(taskobject)
 
-#get all tasks for day/ week/ month
-# @tasks_routes.route('/day', methods=["GET"])
-# def get_day_tasks():
-#   today = date.today()
-#   # Textual month, day and year	
-#   # d2 = today.strftime("%d/%m/%Y")
-#   print(today)
-#   # print("d2 =", d2)
+# get all tasks for tomorrow
+@tasks_routes.route('/tomorrow', methods=["GET"])
+def get_tmo_tasks():
+  tomorrow = datetime.now()+timedelta(1)
+  # strftime = Textual month, day and year	
+  d2 = tomorrow.strftime("%Y-%m-%d")
+  print("CURRENT TODAY********", d2)
 
-#   # tasks = Task.query.filter(Task.due == d1).all()
-#   tasks = Task.query.all()
-#   print(task.due for task in tasks)
-#   taskobject = [task.to_dict() for task in tasks]
-#   return jsonify(taskobject)
+  tasks = Task.query.filter(Task.due == d2)
+  # print(tasks)
+  taskobject = [task.to_dict() for task in tasks]
+  return jsonify(taskobject)
+
+# get all tasks for month
+@tasks_routes.route('/month', methods=["GET"])
+def get_month_tasks():
+  today = date.today()
+  # strftime = Textual month, day and year	
+  d2 = today.strftime("%Y-%m")
+  # print("CURRENT TODAY********", d2)
+
+  tasks = Task.query.all()
+  new_tasks = [task.due.strftime("%Y-%m") == d2 for task in tasks]
 
 
-# @tasks_routes.route('/week', methods=["GET"])
-# def get_week_tasks():
+  months_tasks = tasks.filter(new_tasks)
+  # task_date = tasks.due
+  # new = task_date.strftime("%Y-%m")
+  print("*************", months_tasks)
+  # taskobject = [task.to_dict() for task in tasks]
+  return 'testing'
 
-# @tasks_routes.route('/month', methods=["GET"])
-# def get_month_tasks():
+
 
 # #create new simple task
 @tasks_routes.route('/', methods=['POST'])
