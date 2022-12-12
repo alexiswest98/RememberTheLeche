@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, Group, db
 from ..forms.group_form import GroupForm
@@ -25,14 +25,16 @@ def delete_group(id):
 # @login_required
 def create_group():
   form = GroupForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     group = Group(
     name = form.data['name'],
-    image_url= form.data['image_url']
+    image_url= form.data['image_url'],
+    owner_id=form.data['owner_id']
     )
-    db.add(group)
-    db.commit()
-    return 'jsonify(group)'
+    db.session.add(group)
+    db.session.commit()
+    return jsonify(group.to_dict())
 
   if form.errors:
     return('Bad Data')
