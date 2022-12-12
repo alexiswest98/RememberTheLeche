@@ -1,9 +1,7 @@
-
 const GETONEGROUP = 'groups/getOneGroup'
 const GETALLGROUPS = 'groups/getAllGroups'
 const CREATEONEGROUP = 'groups/createGroup'
 const DELETEGROUP = 'groups/deleteGroup'
-
 
 export const getGroupAction = (group) => {
   return {
@@ -57,7 +55,7 @@ export const createGroupThunk = (group) => async (dispatch) => {
 export const getGroupsThunk = () => async (dispatch) => {
   const response = await fetch(`/api/groups`);
   if (response.ok) {
-    const data = await res.json();
+    const data = await response.json();
     dispatch(getGroupsAction(data));
   }
 };
@@ -66,7 +64,7 @@ export const getGroupsThunk = () => async (dispatch) => {
 export const getGroupThunk = (groupId) => async (dispatch) => {
   const response = await fetch(`/api/groups/${groupId}`);
   if (response.ok) {
-    const data = await res.json();
+    const data = await response.json();
     dispatch(getGroupAction(data));
   }
 };
@@ -83,20 +81,27 @@ export const deleteGroupThunk = (groupId) => async (dispatch) => {
 export default function groupReducer(state = {}, action){
   let newState = {}
 switch(action.type){
+
   case GETONEGROUP:
     newState[action.group.id] = action.group
         return newState
+
   case GETALLGROUPS:
     action.groups.forEach(group => {
       newState[group.id] = group
     })
     return newState
+
   case CREATEONEGROUP:
     newState = {...state}
     newState[action.group.id] = action.group
+    return newState
+
   case DELETEGROUP:
     newState = {...state}
     delete newState[action.groupId]
+    return newState
+
   default:
     return state
 }
