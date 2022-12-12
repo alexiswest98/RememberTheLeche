@@ -42,7 +42,7 @@ def get_tmo_tasks():
   tomorrow = datetime.now() + timedelta(1)
   # strftime = Textual month, day and year	
   d2 = tomorrow.strftime("%Y-%m-%d")
-  print("CURRENT TODAY********", d2)
+  # print("CURRENT TODAY********", d2)
 
   tasks = Task.query.filter(Task.due == d2)
   # print(tasks)
@@ -55,14 +55,13 @@ def get_month_tasks():
   today = date.today()
   # strftime = Textual month, day and year	
   d2 = today.strftime("%Y-%m")
-  print("CURRENT TODAY********", d2)
+  # print("CURRENT TODAY********", d2)
 
   tasks = Task.query.all()
   new_tasks = [task for task in tasks if task.due.strftime("%Y-%m") == d2]
 
   taskobject = [task.to_dict() for task in new_tasks]
   return jsonify(taskobject)
-
 
 
 # #create new simple task
