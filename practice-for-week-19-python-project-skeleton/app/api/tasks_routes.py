@@ -39,7 +39,7 @@ def get_day_tasks():
 # get all tasks for tomorrow
 @tasks_routes.route('/tomorrow', methods=["GET"])
 def get_tmo_tasks():
-  tomorrow = datetime.now()+timedelta(1)
+  tomorrow = datetime.now() + timedelta(1)
   # strftime = Textual month, day and year	
   d2 = tomorrow.strftime("%Y-%m-%d")
   print("CURRENT TODAY********", d2)
@@ -55,18 +55,13 @@ def get_month_tasks():
   today = date.today()
   # strftime = Textual month, day and year	
   d2 = today.strftime("%Y-%m")
-  # print("CURRENT TODAY********", d2)
+  print("CURRENT TODAY********", d2)
 
   tasks = Task.query.all()
-  new_tasks = [task.due.strftime("%Y-%m") == d2 for task in tasks]
+  new_tasks = [task for task in tasks if task.due.strftime("%Y-%m") == d2]
 
-
-  months_tasks = tasks.filter(new_tasks)
-  # task_date = tasks.due
-  # new = task_date.strftime("%Y-%m")
-  print("*************", months_tasks)
-  # taskobject = [task.to_dict() for task in tasks]
-  return 'testing'
+  taskobject = [task.to_dict() for task in new_tasks]
+  return jsonify(taskobject)
 
 
 
