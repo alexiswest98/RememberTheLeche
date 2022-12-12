@@ -47,23 +47,22 @@ def create_lists():
 
 #update list by id
 @lists_routes.route('/<int:list_id>', methods=['PUT'])
-def update_lists():
-    form = ListForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    data = form.data
-  
-    if form.validate_on_submit():
-      new_list = List(
-        name = data['name'],
-        user_id = data['user_id'],
-        due = data['due'],
-        notes = data['notes'],
-        group_id = data['group_id']
-      )
-      db.session.add(new_list)
-      db.session.commit()
-      return jsonify(new_list.to_dict())
-    return jsonify('You messed up', form.errors)
+def update_list(list_id):
+  form = ListForm()
+  list = List.query.get(list_id)
+  form['csrf_token'].data = request.cookies['csrf_token']
+  data = form.data
+
+  if list and form.validate_on_submit():
+    list.name = data['name']
+    list.user_id = data['user_id']
+    list.due = data['due']
+    list.notes = data['notes']
+    list.group_id = data['group_id']
+    # db.session.update()
+    db.session.commit()
+    return (list.to_dict())
+  return jsonify('could not find list')
 
 #delete list by id
 @lists_routes.route('/<int:list_id>', methods=['DELETE'])

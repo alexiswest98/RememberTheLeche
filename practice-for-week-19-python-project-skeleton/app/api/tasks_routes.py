@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify, redirect
-from flask_login import login_required
+from flask import Blueprint, jsonify, redirect, request
+from flask_login import login_required, current_user
 from datetime import date
 from app.models import Task, db
 from app.forms.task_form import CreateTaskForm
@@ -50,30 +50,52 @@ def get_all_tasks():
 # def get_month_tasks():
 
 # #create new simple task
-@tasks_routes.route('', methods=['POST'])
+@tasks_routes.route('/', methods=['POST'])
 def create_task():
   form = CreateTaskForm()
-  # form['csrf_token'].data = request.cookies['csrf_token']
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  data = form.data
 
   if form.validate_on_submit():
-    data = form.data
     new_task = Task(
       name = data['name'],
       user_id = data['user_id'],
+      list_id = data['list_id'],
       due = data['due'],
       notes = data['notes']
     )
     db.session.add(new_task)
-    db.commit()
+    db.session.commit()
     return jsonify(new_task.to_dict())
-  return "A problem occured"
+  return jsonify('You messed up', form.errors)
   
 
-# #create list task TEST WHEN GABES ARE DONE
-# @tasks_routes.route('/lists/<int:id>/tasks', methods=['POST'])
-
 # #update task by id
-# @tasks_routes.route('/<int:id>', methods=['PUT'])
+@tasks_routes.route('/<int:task_id>', methods=['PUT'])
+def update_task(task_id):
+  form = CreateTaskForm()
+  task = Task.query.get(task_id)
+  form['csrf_token'].data = request.cookies['csrf_token']
+  data = form.data
+
+  if task:
+    task.name = data['name']
+    task.user_id = data['user_id']
+    task.due = data['due']
+    task.notes = data['notes']
+    task.completed_by = data['completed_by']
+    db.session.commit()
+    return (task.to_dict())
+  return jsonify('could not find task')
+
 
 # #delete task by id
-# @tasks_routes.route('/<int:id>', methods=['DELETE'])
+@tasks_routes.route('/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+  task = Task.query.get(task_id)
+  if task:
+    db.session.delete(task)
+    db.session.commit()
+    return 'Successfully deleted task'
+  return 'Could not find task'
