@@ -1,4 +1,5 @@
 from app.models import db, User, environment, SCHEMA
+from app.models.followers import follows
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
@@ -17,6 +18,8 @@ def seed_users():
     seed_user6 = User( username='George Plosem', password='password123', email='plosemGeorge10@gmail.com')
     seed_user7 = User( username='Meredith Jordyn', password='password123', email='meredithJordyn@gmail.com')
 
+
+    
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
@@ -32,6 +35,19 @@ def seed_users():
     db.session.add(seed_user6)
     db.session.add(seed_user7)
 
+    demo.followers.append(marnie)
+    demo.followers.append(bobbie)
+    demo.followers.append(alexis_west)
+    demo.followers.append(michael_lacey)
+    demo.followers.append(gabriel_day)
+    demo.followers.append(evan_morgan)
+
+    demo.following.append(marnie)
+    demo.following.append(bobbie)
+    demo.following.append(alexis_west)
+    demo.following.append(michael_lacey)
+    demo.following.append(gabriel_day)
+    demo.following.append(evan_morgan)
 
     db.session.commit()
 
