@@ -3,7 +3,6 @@ const GETALLGROUPS = 'groups/getAllGroups'
 const CREATEONEGROUP = 'groups/createGroup'
 const DELETEGROUP = 'groups/deleteGroup'
 
-
 export const getGroupAction = (group) => {
   return {
     type: GETONEGROUP,
@@ -102,7 +101,7 @@ switch(action.type){
     newState = {...state}
     delete newState[action.groupId]
     return newState
-    
+
   default:
     return state
 }

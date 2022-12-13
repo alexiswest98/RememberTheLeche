@@ -109,7 +109,7 @@ export default function tasksReducer(state = {}, action) {
             newState = { ...state }
             newState[action.task.id] = action.task
             return newState
-            
+
         default:
             return state
     }

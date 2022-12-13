@@ -88,8 +88,8 @@ export const CreateListThunk = (list) => async (dispatch) => {
       return data
     }
   }
-  
-  
+
+
   const initialState = {
     allLists: {},
     oneList: {}
@@ -97,12 +97,12 @@ export const CreateListThunk = (list) => async (dispatch) => {
   /* ------------REDUCER----------- */
   export default function listsReducer(state = initialState, action) {
     let newState = {};
-  
+
     switch (action.type) {
         case GetAllLists:
-            action.Lists.forEach(list => newState[list.id] = list)
+            action.Lists.forEach(List => newState[List.id] = List)
             return newState
-  
+
         case GetOneList:
           newState = { ...state, oneList: {...state.oneList}}
           newState.oneList = { ...action.list }
@@ -112,7 +112,7 @@ export const CreateListThunk = (list) => async (dispatch) => {
             newState = { ...state }
             newState[ action.list.id ] = action.list
             return newState
-  
+
         case DeleteList:
             newState = { ...state }
             delete newState[action.id]
@@ -122,7 +122,8 @@ export const CreateListThunk = (list) => async (dispatch) => {
             newState = { ...state }
             newState[action.list.id] = action.list
             return newState
-            
+
+
         default:
             return state
     }
