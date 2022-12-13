@@ -10,7 +10,7 @@ lists_routes = Blueprint('lists', __name__, url_prefix="/api/lists")
 @lists_routes.route('/all', methods=['GET'])
 def lists_by_user():
   lists = List.query.filter(List.user_id == current_user.id).all()
-  
+
   # lists = List.query.all()
   list_obj = [list.to_dict() for list in lists]
   return jsonify(list_obj)
