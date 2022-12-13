@@ -1,5 +1,5 @@
-const GetOneList = 'tasks/getOneTask' //done
-const GetAllLists = 'tasks/getAllTasks' //done
+const GetOneList = 'lists/getOneList' //done
+const GetAllLists = 'lists/getAllLists' //done
 const CreateList = 'lists/createList' //done
 const UpdateList = 'lists/updateList' //done
 const DeleteList = 'lists/deleteList' //done
@@ -56,11 +56,12 @@ export const GetOneListThunk = () => async (dispatch) => {
   }
 }
 // Get all Lists
-export const GetAllListThunk = () => async (dispatch) => {
+export const GetAllListsThunk = () => async (dispatch) => {
   const res = await fetch(`/api/lists/all`);
   if (res.ok) {
     const data = await res.json();
     dispatch(GetAllListAction(data))
+    return data
   }
 }
 

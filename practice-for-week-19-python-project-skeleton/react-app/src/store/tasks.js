@@ -1,6 +1,7 @@
 const CREATETASK = 'tasks/createTask'
 const GETALLTASKS = 'tasks/getAllTasks'
 const GETONETASK = 'tasks/getOneTask'
+const GETLISTTASKS = 'tasks/getListTasks'
 const DELETETASK = 'tasks/deleteTask'
 const UPDATETASK = 'tasks/updateTask'
 
@@ -18,6 +19,13 @@ export const getOneTaskAction = (task) => {
         task
     };
 };
+
+export const getListTasksAction = (tasks) => {
+  return {
+    type: GETLISTTASKS,
+    tasks
+  }
+}
 
 export const createTaskAction = (task) => {
     return {
@@ -65,6 +73,15 @@ export const getAllTasksThunk = () => async (dispatch) => {
     };
 };
 
+//get all tasks for list
+export const getAllListTasksThunk = (list_id) => async (dispatch) => {
+  const response = await fetch(`/api/tasks/lists/${list_id}`)
+  if (response.ok) {
+    const tasks = await response.json()
+    dispatch(getListTasksAction(tasks))
+  }
+}
+
 // Update a task
 export const editTaskThunk = (task, taskId) => async (dispatch) => {
     const response = await fetch(`/api/tasks/${taskId}`, {
@@ -95,6 +112,10 @@ export default function tasksReducer(state = {}, action) {
             action.tasks.forEach(task => newState[task.id] = task)
             return newState
 
+        case GETLISTTASKS:
+            action.tasks.forEach(task => newState[task.id] = task)
+            return newState
+            
         case UPDATETASK:
             newState = { ...state }
             newState[ action.task.id ] = action.task
